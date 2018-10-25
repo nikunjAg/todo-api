@@ -34,23 +34,17 @@ app.get('/todos/:id', (req, res)=> {
     var id = req.params.id;
 
     if(!ObjectID.isValid(id))
-        return res.status(404).send({
-            err: 'This Id not a valid one.'
-        });
+        return res.status(404).send();
        
     Todo.findById(id).then((todo)=> {
 
         // when object ID is valid but is not present inside the collection
         if(!todo){
-            return res.status(404).send({
-                err: 'No Todo found with this ID.'
-            });
+            return res.status(404).send();
         }
 
         res.send({todo});
-    }).catch((e) => res.status(400).send({
-        err: 'Error Occured.'
-    }));    
+    }).catch((e) => res.status(400).send());    
 
 });
 
